@@ -62,6 +62,7 @@ const deleteProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
     const projectDeleted = await Project.findByIdAndDelete(id);
+    deleteFile(projectDeleted.imagen);
     return res.status(200).json(projectDeleted);
   } catch (error) {
     return res.status(400).json('Error al eliminar el proyecto');
