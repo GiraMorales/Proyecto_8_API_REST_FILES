@@ -3,17 +3,24 @@ const Project = require('../models/project');
 //! CREATE
 const postProjects = async (req, res, next) => {
   try {
-    const newProyect = new Project({
-      title: req.body.title,
-      imgUrl: req.body.imgUrl,
-      username: req.body.username
-    });
+    const newProyect = new Project(req.body);
+
+    if (req.file) {
+      newProyect.imagen = req.file.path;
+    }
+    if (req.user.rol === 'admin') {
+      newProyect.verified = true;
+    } else {
+      newProyect.verified = false;
+    }
+
     const projectSaved = await newProyect.save();
     return res.status(201).json(projectSaved);
   } catch (error) {
     return res.status(400).json('Error al crear el proyecto');
   }
 };
+
 //! READ
 const getProjects = async (req, res, next) => {
   try {

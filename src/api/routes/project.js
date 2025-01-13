@@ -11,7 +11,7 @@ const ProjectRoutes = require('express').Router();
 
 ProjectRoutes.get('/', getProjects);
 ProjectRoutes.get('/:id', getUserProjects);
-ProjectRoutes.post('/', [isAuth], postProjects);
+ProjectRoutes.post('/', [isAuth], upload.single('imagen'), postProjects);
 ProjectRoutes.put('/:id', [isAdmin], updateProjects);
 ProjectRoutes.delete('/:id', [isAdmin], deleteProjects);
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema(
   {
-    imgUrl: { type: String, required: true },
+    imagen: { type: String, required: true },
     title: { type: String, required: true },
     username: { type: mongoose.Types.ObjectId, ref: 'users', required: true }
   },
