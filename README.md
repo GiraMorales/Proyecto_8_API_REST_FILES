@@ -50,6 +50,7 @@ Seguridad: Implementación de autenticación con JWT.
 - INMSOMIA
 - Visual Studio Code
 - Cloudinary
+- Multer
 
 ## Instalación
 
