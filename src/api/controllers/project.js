@@ -1,3 +1,4 @@
+const { deleteFile } = require('../../utils/deleteFile');
 const Project = require('../models/project');
 
 //! CREATE
@@ -46,8 +47,14 @@ const getUserProjects = async (req, res, next) => {
 const updateProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const oldProject = await Project.findById(id);
     const newProyect = new Project(req.body);
     newProyect._id = id;
+    if (req.file) {
+      newProyect.imagen = req.file.path;
+      deleteFile(oldProject.imagen);
+    }
+
     const updateProjects = await Project.findByIdAndUpdate(id, newProyect, {
       new: true
     });
