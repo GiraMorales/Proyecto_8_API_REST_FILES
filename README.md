@@ -3,11 +3,11 @@
 API-REST-AUTH-FILE
 Esta es una API REST AUTH creada como parte de un proyecto educativo.
 Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) para gestionar proyectos.
-Hay que resgristrarse, si eres admin puedes buscar usuarios, borrar usuarios propietarios y proyectos, actualizar proyectos, crear propietarios y actualizar propietarios.
-Si eres user solo buscar propietarios y proyectos, registrarte y loguearte.
-Y el Autorizado puesde crear los proyectos.
+Hay que resgristrarse, si eres admin puedes buscar jugadores, borrar jugadores, pantallas, mundos y actualizar, crear y actualizar mundos.
+Si eres jugador solo buscar Mundos y pantallas, registrarte y loguearte.
+Y el Autorizado puesde crear los Mundos.
 
-La contraseña tanto de los usuarios se encrypta.
+La contraseña tanto de los jugadores se encrypta.
 
 Las key de la base de datos de cloudinary como la de mondongo y el token donde guarda las contraseñas por 30 dias se guarda en el archivo .env.
 
@@ -17,28 +17,28 @@ Para realizar las operaciones CRUD uso la APP INMSOMIA, y todo se gestiona en la
 
 ### Users
 
-POST /api/v1/users/register: Registro de un nuevo usuario.
-POST /api/v1/users/login: Inicio de sesión de un usuario.
+POST /api/v1/jugadores/register: Registro de un nuevo jugador.
+POST /api/v1/jugadores/login: Inicio de sesión de un jugador.
 
-### Projects
+### Mundos
 
-GET /api/v1/projects: Obtiene todos los proyectos.
-POST /api/v1/projects: Crea un nuevo proyecto.
-PUT /api/v1/projects/:id: Actualiza un proyecto existente.
-DELETE /api/v1/projects/:id: Elimina un proyecto y su archivo asociado en Cloudinary.
+GET /api/v1/mundos: Obtiene todos los Mundos.
+POST /api/v1/mundos: Crea un nuevo Mundo.
+PUT /api/v1/mundos/:id: Actualiza un Mundo existente.
+DELETE /api/v1/mundos/:id: Elimina un Mundo y su archivo asociado en Cloudinary.
 
-### Owners
+### Pantallas
 
-GET /api/v1/owners: Obtiene todos los propietarios.
-POST /api/v1/owners: Crea un nuevo propietario.
-PUT /api/v1/owners/:id: Actualiza un propietario existente.
-DELETE /api/v1/owners/:id: Elimina un propietario y su archivo asociado en Cloudinary.
+GET /api/v1/pantallas: Obtiene todas las pantallas.
+POST /api/v1/pantallas: Crea una nueva pantalla.
+PUT /api/v1/pantallas/:id: Actualiza una pantalla existente.
+DELETE /api/v1/pantallas/:id: Elimina una pantalla y su archivo asociado en Cloudinary.
 
 ## Funcionalidades
 
-Subida de archivos a Cloudinary: Los modelos de Projects y Owners permiten almacenar archivos multimedia en Cloudinary.
+Subida de archivos a Cloudinary: Los modelos de Mundos y pantallas permiten almacenar archivos multimedia en Cloudinary.
 Eliminación de archivos: Cuando se elimina un documento de la base de datos, también se elimina el archivo correspondiente en Cloudinary.
-Relación entre colecciones: Los proyectos están relacionados con los propietarios.
+Relación entre colecciones: Las pantallas están relacionados con los Mundos.
 Seguridad: Implementación de autenticación con JWT.
 
 ## Tecnologías Utilizadas
@@ -64,7 +64,7 @@ Seguridad: Implementación de autenticación con JWT.
 
 ### Se instala las dependencias
 
-`Para encryptar las contraseñas de los usuarios.`
+`Para encryptar las contraseñas de los jugadores.`
 
 - "bcrypt"
 
@@ -96,7 +96,7 @@ Seguridad: Implementación de autenticación con JWT.
 
 - "mongoose"
 
-`Para procesar imagenes y documentos subidos por el usuario.`
+`Para procesar imagenes y documentos subidos por el jugador.`
 
 - "multer"
 

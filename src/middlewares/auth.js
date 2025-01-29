@@ -7,9 +7,9 @@ const isAuth = async (req, res, next) => {
     }
     const parsedToken = token.replace('Bearer ', '');
     const { id } = verifyjwt(parsedToken);
-    const user = await User.findByPk(id);
-    user.password = null;
-    req.user = user;
+    const jugador = await jugadorName.findByPk(id);
+    jugador.password = null;
+    req.jugador = jugador;
     next();
   } catch (error) {
     return res.status(400).json(error);
@@ -21,10 +21,10 @@ const isAdmin = async (req, res, next) => {
     const token = req.headers.authorization;
     const parsedToken = token.replace('Bearer ', '');
     const { id } = verifyjwt(parsedToken);
-    const user = await User.findByPk(id);
-    if (user.rol !== 'admin') {
-      user.password = null;
-      req.user = user;
+    const jugador = await jugadorName.findByPk(id);
+    if (jugador.rol !== 'admin') {
+      jugador.password = null;
+      req.jugador = jugador;
       next();
     } else {
       return res

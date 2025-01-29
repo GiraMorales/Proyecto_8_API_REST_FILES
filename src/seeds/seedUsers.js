@@ -1,25 +1,25 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('../api/models/users');
+const Jugador = require('../api/models/jugadors');
 
 // Datos iniciales
-const users = [
+const jugadors = [
   {
-    username: 'admin',
+    jugadorname: 'admin',
     password: 'admin123'
   },
   {
-    username: 'user1',
-    password: 'user123'
+    jugadorname: 'jugador1',
+    password: 'jugador123'
   },
   {
-    username: 'user2',
-    password: 'user456'
+    jugadorname: 'jugador2',
+    password: 'jugador456'
   }
 ];
 
 // Función para poblar la base de datos
-const seedUsers = async () => {
+const seedJugadores = async () => {
   try {
     // Conectar a la base de datos
     await mongoose.connect(process.env.DB_URL, {
@@ -29,16 +29,16 @@ const seedUsers = async () => {
     console.log('Conectado a la base de datos');
 
     // Limpiar la colección antes de insertar
-    await User.deleteMany({});
-    console.log('Colección users limpiada');
+    await Jugador.deleteMany({});
+    console.log('Colección jugadores limpiada');
 
     // Insertar datos
-    await User.insertMany(users);
-    console.log('Usuarios insertados correctamente');
+    await Jugador.insertMany(jugadors);
+    console.log('Jugadores insertados correctamente');
 
     // Cerrar la conexión
     mongoose.disconnect();
-    console.log('Conexión cerrada');
+    console.log('Desconectado de la base de datos');
   } catch (error) {
     console.error('Error al poblar la base de datos:', error);
     process.exit(1); // Finalizar el proceso con error
@@ -46,4 +46,4 @@ const seedUsers = async () => {
 };
 
 // Ejecutar la semilla
-seedUsers();
+seedJugadores();

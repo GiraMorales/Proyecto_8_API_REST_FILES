@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const UserSchema = new mongoose.Schema(
+const JugadorSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true },
+    jugadorName: { type: String, required: true },
     password: { type: String, required: true },
     rol: {
       type: String,
@@ -14,13 +14,13 @@ const UserSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    collection: 'users'
+    collection: 'Jugadores'
   }
 );
 
-UserSchema.pre('save', function () {
+JugadorSchema.pre('save', function () {
   this.password = bcrypt.hashSync(this.password, 10);
 });
 
-const User = mongoose.model('users', UserSchema, 'users');
-module.exports = User;
+const Jugador = mongoose.model('Jugadores', JugadorSchema, 'Jugadores');
+module.exports = Jugador;

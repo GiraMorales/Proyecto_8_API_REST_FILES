@@ -1,10 +1,10 @@
-const OwnerRoutes = require('./owners');
-const ProjectRoutes = require('./project');
-const UsersRoutes = require('./users');
+const JugadoresRoutes = require('./jugador');
+const MundoRoutes = require('./mundo');
+const PantallaRoutes = require('./pantalla');
 const mainRouter = require('express').Router();
 
-mainRouter.use('/projects', ProjectRoutes);
-mainRouter.use('/owners', OwnerRoutes);
-mainRouter.use('/users', UsersRoutes);
+mainRouter.use('/mundos', MundoRoutes);
+mainRouter.use('/pantallas', PantallaRoutes);
+mainRouter.use('/jugadores', JugadoresRoutes);
 
 module.exports = mainRouter;
