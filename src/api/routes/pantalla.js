@@ -1,16 +1,16 @@
 const { isAdmin } = require('../../middlewares/auth');
 const {
   postPantalla,
-  getPantalla,
+  getPantallas,
   updatePantalla,
   deletePantalla
-} = require('../controllers/pantallas');
+} = require('../controllers/pantalla');
 
 const PantallaRoutes = require('express').Router();
 
-PantallaRoutes.post('/', [isAdmin], postPantalla); // Crear propietario
-PantallaRoutes.get('/', getPantalla); // Obtener todos los pripietarios
-PantallaRoutes.put('/:id', [isAdmin], updatePantalla); // Actualizar propietario por ID
-PantallaRoutes.delete('/:id', [isAdmin], deletePantalla); // Eliminar propietario por ID
+PantallaRoutes.post('/', [isAdmin], postPantalla);
+PantallaRoutes.get('/', getPantallas);
+PantallaRoutes.put('/:id', [isAdmin], updatePantalla);
+PantallaRoutes.delete('/:id', [isAdmin], deletePantalla);
 
-module.exports = PantallaRoutes; // Exportar rutas de usuarios
+module.exports = PantallaRoutes;

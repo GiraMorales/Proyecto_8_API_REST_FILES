@@ -1,10 +1,10 @@
 const { isAdmin } = require('../../middlewares/auth');
 const {
   register,
-  deleteJugador,
   login,
+  deleteJugador,
   getJugadores
-} = require('../controllers/jugadores');
+} = require('../controllers/jugador');
 
 const JugadoresRoutes = require('express').Router();
 

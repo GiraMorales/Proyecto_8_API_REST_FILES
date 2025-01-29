@@ -1,5 +1,5 @@
 const { generateSing } = require('../../config/jwt');
-const Jugador = require('../models/jugadores');
+const Jugador = require('../models/jugador');
 const bcrypt = require('bcrypt');
 
 const getJugadores = async (req, res, next) => {

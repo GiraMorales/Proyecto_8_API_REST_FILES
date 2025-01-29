@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { connectDB } = require('./src/config/db');
-const PORT = 3000;
+const PORT = 3001;
 const cors = require('cors');
 const mainRouter = require('./src/api/routes/main');
 const cloudinary = require('cloudinary').v2;

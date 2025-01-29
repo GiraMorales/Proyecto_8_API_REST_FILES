@@ -7,7 +7,7 @@ const {
   postMundos,
   updateMundos,
   deleteMundos
-} = require('../controllers/project');
+} = require('../controllers/mundo');
 
 const MundoRoutes = require('express').Router();
 
