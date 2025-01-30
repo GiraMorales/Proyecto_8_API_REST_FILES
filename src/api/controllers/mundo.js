@@ -43,6 +43,7 @@ const getPantallaMundos = async (req, res, next) => {
     return res.status(400).json('Error al obtener mundos');
   }
 };
+
 //! UPDATE
 const updateMundos = async (req, res, next) => {
   try {

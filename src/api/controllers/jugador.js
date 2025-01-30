@@ -2,14 +2,7 @@ const { generateSing } = require('../../config/jwt');
 const Jugador = require('../models/jugador');
 const bcrypt = require('bcrypt');
 
-const getJugadores = async (req, res, next) => {
-  try {
-    const jugadores = await Jugador.find();
-    return res.status(200).json(jugadores);
-  } catch (error) {
-    return res.status(400).json(error);
-  }
-};
+//! CREATE
 const register = async (req, res, next) => {
   try {
     const newJugador = new Jugador({
@@ -38,6 +31,15 @@ const register = async (req, res, next) => {
     return res.status(400).json(error);
   }
 };
+//! READ
+const getJugadores = async (req, res, next) => {
+  try {
+    const jugadores = await Jugador.find();
+    return res.status(200).json(jugadores);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
 
 const login = async (req, res, next) => {
   try {
@@ -60,7 +62,27 @@ const login = async (req, res, next) => {
     return res.status(400).json(error);
   }
 };
+//! UPDATE
+const updateJugadores = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const oldJugador = await Jugador.findById(id);
+    const newJugador = new Jugador(req.body);
+    newJugador._id = id;
+    if (req.file) {
+      newJugador.imagen = req.file.path;
+      deleteFile(oldJugador.imagen);
+    }
 
+    const updateJugadores = await Jugador.findByIdAndUpdate(id, newJugador, {
+      new: true
+    });
+    return res.status(200).json(updateJugadores);
+  } catch (error) {
+    return res.status(400).json('Error al actualizar la Jugador');
+  }
+};
+//! DELETE
 const deleteJugador = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -73,4 +95,10 @@ const deleteJugador = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, deleteJugador, getJugadores };
+module.exports = {
+  getJugadores,
+  register,
+  login,
+  updateJugadores,
+  deleteJugador
+};
