@@ -7,7 +7,6 @@ const JugadorSchema = new mongoose.Schema(
     password: { type: String, required: true },
     rol: {
       type: String,
-      required: true,
       enum: ['admin', 'user'],
       default: 'user'
     }
