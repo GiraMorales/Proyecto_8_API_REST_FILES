@@ -3,11 +3,12 @@
 API-REST-AUTH-FILE
 Esta es una API REST AUTH creada como parte de un proyecto educativo.
 Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) para gestionar proyectos.
-Hay que resgristrarse, si eres admin puedes buscar jugadores, borrar jugadores, pantallas, mundos y actualizar, crear y actualizar mundos.
-Si eres jugador solo buscar Mundos y pantallas, registrarte y loguearte.
-Y el Autorizado puesde crear los Mundos.
+Crear un usuario y hacerlo admin para poder gestionar la parte de pantallas y mundos que no pueden gestionar los usuarios por seguridad, como crear mundos y pantallas, actualizarlos o borrarlos.
+Puedes crear un usuario siempre y cuando ese nombre de usuario no este cogido por otro usuario.
+Solo puedes buscar otros usuarios si estar logueado.
+Si estas logueado puedes borrar y actualizar tu usuario y buscar todas las pantallas y mundos que hay.
 
-La contraseña tanto de los jugadores se encrypta.
+La contraseña de los jugadores se encrypta.
 
 Las key de la base de datos de cloudinary como la de mondongo y el token donde guarda las contraseñas por 30 dias se guarda en el archivo .env.
 

@@ -7,8 +7,7 @@ const register = async (req, res, next) => {
   try {
     const newJugador = new Jugador({
       jugadorName: req.body.jugadorName,
-      password: req.body.password,
-      rol: 'jugador'
+      password: req.body.password
     });
 
     const jugadorDuplicate = await Jugador.findOne({
@@ -21,21 +20,9 @@ const register = async (req, res, next) => {
     }
 
     const jugadorSaved = await newJugador.save();
-    return res.status(201).json(jugadorSaved);
-  } catch (error) {
-    // if (error.code === 11000) {
-    // return res
-    // .status(400)
-    //.json({ message: 'Ese nombre de usuario ya existe' });
-    // }
-    return res.status(400).json(error);
-  }
-};
-//! READ
-const getJugadores = async (req, res, next) => {
-  try {
-    const jugadores = await Jugador.find();
-    return res.status(200).json(jugadores);
+    return res
+      .status(201)
+      .json({ message: 'Enhorabuena, jugador resgistrado', jugadorSaved });
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -51,7 +38,9 @@ const login = async (req, res, next) => {
       if (bcrypt.compareSync(req.body.password, jugador.password)) {
         //! aqui va la logica del login
         const token = generateSing(jugador._id);
-        return res.status(200).json({ jugador, token, message: 'Bienvenido' });
+        return res
+          .status(200)
+          .json({ message: 'Bienvenido al juego', jugador, token });
       } else {
         return res.status(404).json('Jugador o contraseña son incorrectos');
       }
@@ -62,6 +51,17 @@ const login = async (req, res, next) => {
     return res.status(400).json(error);
   }
 };
+
+//! READ
+const getJugadores = async (req, res, next) => {
+  try {
+    const jugadores = await Jugador.find();
+    return res.status(200).json(jugadores);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
+
 //! UPDATE
 const updateJugadores = async (req, res, next) => {
   try {
@@ -82,6 +82,7 @@ const updateJugadores = async (req, res, next) => {
     return res.status(400).json('Error al actualizar la Jugador');
   }
 };
+
 //! DELETE
 const deleteJugador = async (req, res, next) => {
   try {

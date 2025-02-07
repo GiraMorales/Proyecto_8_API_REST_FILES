@@ -1,4 +1,4 @@
-const { isAdmin } = require('../../middlewares/auth');
+const { isAdmin, isAuth } = require('../../middlewares/auth');
 const {
   postPantalla,
   getPantallas,
@@ -9,7 +9,7 @@ const {
 const PantallaRoutes = require('express').Router();
 
 PantallaRoutes.post('/', [isAdmin], postPantalla);
-PantallaRoutes.get('/', getPantallas);
+PantallaRoutes.get('/'[isAuth], getPantallas);
 PantallaRoutes.put('/:id', [isAdmin], updatePantalla);
 PantallaRoutes.delete('/:id', [isAdmin], deletePantalla);
 

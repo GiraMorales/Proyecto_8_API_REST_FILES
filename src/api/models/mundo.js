@@ -6,8 +6,7 @@ const MundoSchema = new mongoose.Schema(
     namemundo: { type: String, required: true },
     namepantalla: {
       type: mongoose.Types.ObjectId,
-      ref: 'pantallas',
-      required: true
+      ref: 'pantallas'
     },
     verified: { type: Boolean, required: true, default: false }
   },

@@ -1,4 +1,4 @@
-const { isAdmin } = require('../../middlewares/auth');
+const { isAuth } = require('../../middlewares/auth');
 const {
   getJugadores,
   register,
@@ -9,10 +9,10 @@ const {
 
 const JugadoresRoutes = require('express').Router();
 
-JugadoresRoutes.get('/', [isAdmin], getJugadores);
 JugadoresRoutes.post('/register', register);
 JugadoresRoutes.post('/login', login);
-JugadoresRoutes.put('/:id', [isAdmin], updateJugadores);
-JugadoresRoutes.delete('/:id', [isAdmin], deleteJugador);
+JugadoresRoutes.get('/', [isAuth], getJugadores);
+JugadoresRoutes.put('/:id', [isAuth], updateJugadores);
+JugadoresRoutes.delete('/:id', [isAuth], deleteJugador);
 
 module.exports = JugadoresRoutes;
