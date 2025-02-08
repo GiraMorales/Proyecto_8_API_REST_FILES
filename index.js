@@ -4,12 +4,7 @@ const { connectDB } = require('./src/config/db');
 const PORT = 3001;
 const cors = require('cors');
 const mainRouter = require('./src/api/routes/main');
-const cloudinary = require('cloudinary').v2;
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-});
+const { connectCloudinary } = require('./src/config/cloudinary');
 
 const app = express();
 
@@ -19,6 +14,7 @@ app.use(cors());
 
 // Conectar a la base de datos
 connectDB();
+connectCloudinary();
 // Rutas
 app.use('/api/v1', mainRouter);
 

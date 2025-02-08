@@ -11,7 +11,7 @@ const {
 
 const MundoRoutes = require('express').Router();
 
-MundoRoutes.post('/', [isAdmin], Upload.single('imagen'), postMundos);
+MundoRoutes.post('/', [isAdmin], Upload.fields('imagen'), postMundos);
 MundoRoutes.get('/', [isAuth], getMundos);
 MundoRoutes.get('/:id', [isAuth], getPantallaMundos);
 MundoRoutes.put('/:id', [isAdmin], updateMundos);

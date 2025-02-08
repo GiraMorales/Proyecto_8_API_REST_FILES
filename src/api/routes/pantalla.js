@@ -1,4 +1,5 @@
 const { isAdmin, isAuth } = require('../../middlewares/auth');
+const upload = require('../../middlewares/file');
 const {
   postPantalla,
   getPantallas,
@@ -8,7 +9,7 @@ const {
 
 const PantallaRoutes = require('express').Router();
 
-PantallaRoutes.post('/', [isAdmin], postPantalla);
+PantallaRoutes.post('/', [isAdmin], upload.array('imagen'), postPantalla);
 PantallaRoutes.get('/', [isAuth], getPantallas);
 PantallaRoutes.put('/:id', [isAdmin], updatePantalla);
 PantallaRoutes.delete('/:id', [isAdmin], deletePantalla);
