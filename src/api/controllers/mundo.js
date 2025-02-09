@@ -6,41 +6,47 @@ const postMundos = async (req, res, next) => {
   try {
     const newMundo = new Mundo(req.body);
 
+    // if (req.files && req.files.imagen) {
+    //   newMundo.imagen = req.files.imagen[0].path;
+    // }
     if (req.file) {
-      newMundo.imagen = req.file.path;
+      imagen: req.file.path;
     }
+
     if (req.user.rol === 'admin') {
       newMundo.verified = true;
     } else {
       newMundo.verified = false;
     }
 
-    const mundoSaved = await newMundo.save();
-    return res.status(201).json(mundoSaved);
+    const mundoDB = await newMundo.save();
+    return res.status(201).json(mundoDB);
   } catch (error) {
-    return res.status(400).json('Error al crear el Mundo');
+    return res.status(400).json('Error al crear el Mundo', error);
   }
 };
 
 //! READ
 const getMundos = async (req, res, next) => {
   try {
-    const allMundos = await Mundo.find().populate('pantallaname');
+    const allMundos = await Mundo.find().populate('namepantalla');
     return res.status(200).json(allMundos);
   } catch (error) {
-    return res.status(400).json('Error al obtener Mundos');
+    return res.status(400).json('Error al obtener Mundos', error);
   }
 };
 const getPantallaMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
     const pantallaMundos = await Mundo.findById({ pantalla: id }).populate(
-      pantallaname
+      namepantalla
     );
 
     return res.status(200).json(pantallaMundos);
   } catch (error) {
-    return res.status(400).json('Error al obtener mundos');
+    return res
+      .status(400)
+      .json('Error al obtener las pantallatas de los mundos', error);
   }
 };
 
@@ -61,7 +67,7 @@ const updateMundos = async (req, res, next) => {
     });
     return res.status(200).json(updateMundos);
   } catch (error) {
-    return res.status(400).json('Error al actualizar la Mundo');
+    return res.status(400).json('Error al actualizar la Mundo', error);
   }
 };
 

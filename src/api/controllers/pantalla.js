@@ -4,11 +4,21 @@ const Pantallas = require('../models/pantalla');
 //! CREATE
 const postPantalla = async (req, res, next) => {
   try {
-    const newPantallas = new Pantallas({
-      pantallaname: req.body.pantallaname
-    });
-    const pantallaSaved = await newPantallas.save();
-    return res.status(201).json(pantallaSaved);
+    const newPantalla = new Pantallas(req.body);
+    // if (req.files && req.files.imagen) {
+    //   newPantalla.imagen = req.files.imagen[0].path;
+    // }
+    if (req.file) {
+      imagen: req.file.path;
+    }
+
+    if (req.user.rol === 'admin') {
+      newPantalla.verified = true;
+    } else {
+      newPantalla.verified = false;
+    }
+    const pantallaDB = await newPantallas.save();
+    return res.status(201).json(pantallaDB);
   } catch (error) {
     return res.status(400).json('Error al crear pantalla');
   }

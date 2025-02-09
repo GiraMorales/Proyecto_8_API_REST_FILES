@@ -9,7 +9,8 @@ const {
 
 const PantallaRoutes = require('express').Router();
 
-PantallaRoutes.post('/', [isAdmin], upload.array('imagen'), postPantalla);
+// PantallaRoutes.post('/', /*[isAdmin],*/ upload.fields('imagen'), postPantalla);
+PantallaRoutes.post('/', [isAdmin], upload.single('imagen'), postPantalla);
 PantallaRoutes.get('/', [isAuth], getPantallas);
 PantallaRoutes.put('/:id', [isAdmin], updatePantalla);
 PantallaRoutes.delete('/:id', [isAdmin], deletePantalla);

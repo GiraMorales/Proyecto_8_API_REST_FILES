@@ -24,7 +24,7 @@ const register = async (req, res, next) => {
       .status(201)
       .json({ message: 'Enhorabuena, jugador resgistrado', jugadorSaved });
   } catch (error) {
-    return res.status(400).json(error);
+    return res.status(400).json({ message: 'Nose ha podido guardar', error });
   }
 };
 
