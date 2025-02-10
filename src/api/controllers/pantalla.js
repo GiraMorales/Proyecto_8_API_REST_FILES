@@ -1,26 +1,24 @@
-const { verify } = require('jsonwebtoken');
+const { deleteFile } = require('../../utils/deleteFile');
 const Pantallas = require('../models/pantalla');
 
 //! CREATE
 const postPantalla = async (req, res, next) => {
   try {
     const newPantalla = new Pantallas(req.body);
+    newPantalla.verified = req.user?.rol === 'admin';
     // if (req.files && req.files.imagen) {
     //   newPantalla.imagen = req.files.imagen[0].path;
     // }
     if (req.file) {
-      imagen: req.file.path;
+      newPantalla.imagen = req.file.path;
     }
 
-    if (req.user.rol === 'admin') {
-      newPantalla.verified = true;
-    } else {
-      newPantalla.verified = false;
-    }
-    const pantallaDB = await newPantallas.save();
+    const pantallaDB = await newPantalla.save();
     return res.status(201).json(pantallaDB);
   } catch (error) {
-    return res.status(400).json('Error al crear pantalla');
+    return res
+      .status(400)
+      .json({ message: 'Error al crear pantalla', error: error.message });
   }
 };
 
@@ -38,12 +36,26 @@ const getPantallas = async (req, res, next) => {
 const updatePantalla = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedPantallas = await Pantallas.findByIdAndUpdate(id, req.body, {
+    const oldPantallas = await Pantallas.findById(id, req.body, {
       new: true
     });
+    if (!oldPantallas) {
+      return res.status(404).json({ message: 'Pantalla no encontrada' });
+    }
+    Object.assign(oldPantallas, req.body);
+
+    if (req.file) {
+      if (oldPantallas.imagen) {
+        deleteFile(oldPantallas.imagen);
+      }
+      oldPantallas.imagen = req.file.path;
+    }
+    const updatedPantallas = await oldPantallas.save();
     return res.status(200).json(updatedPantallas);
   } catch (error) {
-    return res.status(400).json('Error al actualizar pantalla');
+    return res
+      .status(400)
+      .json({ message: 'Error al actualizar pantalla', error: error.message });
   }
 };
 
@@ -52,9 +64,20 @@ const deletePantalla = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedPantallas = await Pantallas.findByIdAndDelete(id);
-    return res.status(200).json(deletedPantallas);
+    if (!deletedPantallas) {
+      return res.status(404).json({ message: 'Pantalla no encontrada' });
+    }
+
+    if (deletedPantallas.imagen) {
+      deleteFile(deletedPantallas.imagen);
+    }
+    return res
+      .status(200)
+      .json({ message: 'Pantalla eliminada correctamente', deletedPantallas });
   } catch (error) {
-    return res.status(400).json('Error al eliminar pantalla');
+    return res
+      .status(400)
+      .json({ message: 'Error al eliminar pantalla', error: error.message });
   }
 };
 

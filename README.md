@@ -3,15 +3,12 @@
 API-REST-AUTH-FILE
 Esta es una API REST AUTH creada como parte de un proyecto educativo.
 Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) para gestionar proyectos.
-Crear un usuario y hacerlo admin para poder gestionar la parte de pantallas y mundos que no pueden gestionar los usuarios por seguridad, como crear mundos y pantallas, actualizarlos o borrarlos.
+Crear un usuario y hacerlo administrador desde la base de datos para poder gestionar la parte de pantallas y mundos que no pueden gestionar los usuarios por seguridad, como crear mundos y pantallas, actualizarlos o borrarlos.
 Puedes crear un usuario siempre y cuando ese nombre de usuario no este cogido por otro usuario.
 Solo puedes buscar otros usuarios si estar logueado.
 Si estas logueado puedes borrar y actualizar tu usuario y buscar todas las pantallas y mundos que hay.
-
-La contraseña de los jugadores se encrypta.
-
+La contraseña de los jugadores se encrypta tanto al crear como al actualizar.
 Las key de la base de datos de cloudinary como la de mondongo y el token donde guarda las contraseñas por 30 dias se guarda en el archivo .env.
-
 Para realizar las operaciones CRUD uso la APP INMSOMIA, y todo se gestiona en la BBDD de MongoDB llamada Proyecto_8.
 
 ## Endpoints
@@ -20,20 +17,23 @@ Para realizar las operaciones CRUD uso la APP INMSOMIA, y todo se gestiona en la
 
 POST /api/v1/jugadores/register: Registro de un nuevo jugador.
 POST /api/v1/jugadores/login: Inicio de sesión de un jugador.
+GET /api/v1/jugadores/: Buscar todos los jugadores
+PUT /api/v1/jugadores/:\_id: Actualizar tu perfil de jugador.
+DEL /api/v1/jugadores/:\_id: Borrar tu perfil de jugador.
 
 ### Mundos
 
-GET /api/v1/mundos: Obtiene todos los Mundos.
-POST /api/v1/mundos: Crea un nuevo Mundo.
-PUT /api/v1/mundos/:id: Actualiza un Mundo existente.
-DELETE /api/v1/mundos/:id: Elimina un Mundo y su archivo asociado en Cloudinary.
+GET /api/v1/mundos: Un jugador puede obtener todos los Mundos.
+POST /api/v1/mundos: Un administrador puede crear un nuevo Mundo.
+PUT /api/v1/mundos/:id: Un administrador puede actualizar un Mundo existente.
+DELETE /api/v1/mundos/:id: Un administrador puede eliminar un Mundo y su archivo asociado en Cloudinary.
 
 ### Pantallas
 
 GET /api/v1/pantallas: Obtiene todas las pantallas.
-POST /api/v1/pantallas: Crea una nueva pantalla.
-PUT /api/v1/pantallas/:id: Actualiza una pantalla existente.
-DELETE /api/v1/pantallas/:id: Elimina una pantalla y su archivo asociado en Cloudinary.
+POST /api/v1/pantallas: Un administrador puede crear una nueva pantalla.
+PUT /api/v1/pantallas/:id: Un administrador puede actualizar una pantalla existente.
+DELETE /api/v1/pantallas/:id: Un administrador puede eliminar una pantalla y su archivo asociado en Cloudinary.
 
 ## Funcionalidades
 

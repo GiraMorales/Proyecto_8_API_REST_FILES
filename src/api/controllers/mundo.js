@@ -5,24 +5,20 @@ const Mundo = require('../models/mundo');
 const postMundos = async (req, res, next) => {
   try {
     const newMundo = new Mundo(req.body);
-
+    newMundo.verified = req.user?.rol === 'admin';
     // if (req.files && req.files.imagen) {
     //   newMundo.imagen = req.files.imagen[0].path;
     // }
     if (req.file) {
-      imagen: req.file.path;
-    }
-
-    if (req.user.rol === 'admin') {
-      newMundo.verified = true;
-    } else {
-      newMundo.verified = false;
+      newMundo.imagen = req.file.path;
     }
 
     const mundoDB = await newMundo.save();
     return res.status(201).json(mundoDB);
   } catch (error) {
-    return res.status(400).json('Error al crear el Mundo', error);
+    return res
+      .status(400)
+      .json({ message: 'Error al crear el Mundo', error: error.message });
   }
 };
 
@@ -38,7 +34,7 @@ const getMundos = async (req, res, next) => {
 const getPantallaMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const pantallaMundos = await Mundo.findById({ pantalla: id }).populate(
+    const pantallaMundos = await Mundo.findOne({ pantalla: id }).populate(
       namepantalla
     );
 
@@ -54,20 +50,36 @@ const getPantallaMundos = async (req, res, next) => {
 const updateMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const oldMundo = await Mundo.findById(id);
-    const newMundo = new Mundo(req.body);
-    newMundo._id = id;
-    if (req.file) {
-      newMundo.imagen = req.file.path;
-      deleteFile(oldMundo.imagen);
-    }
-
-    const updateMundos = await Mundo.findByIdAndUpdate(id, newMundo, {
+    const oldMundo = await Mundo.findById(id, {
       new: true
     });
-    return res.status(200).json(updateMundos);
+    if (!oldMundo) {
+      return res.status(404).json({ message: 'Mundo no encontrado' });
+    }
+
+    Object.assign(oldMundo, req.body);
+
+    if (req.file) {
+      // Borra la imagen anterior si existía
+      if (oldMundo.imagen) {
+        deleteFile(oldMundo.imagen);
+      }
+      oldMundo.imagen = req.file.path;
+    }
+
+    // const newMundo = new Mundo(req.body);
+    // newMundo._id = id;
+    // if (req.file) {
+    //   newMundo.imagen = req.file.path;
+    //   deleteFile(oldMundo.imagen);
+    // }
+
+    const updatedMundo = await oldMundo.save();
+    return res.status(200).json(updatedMundo);
   } catch (error) {
-    return res.status(400).json('Error al actualizar la Mundo', error);
+    return res
+      .status(400)
+      .json({ message: 'Error al actualizar el Mundo', error: error.message });
   }
 };
 
@@ -76,10 +88,20 @@ const deleteMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
     const mundoDeleted = await Mundo.findByIdAndDelete(id);
-    deleteFile(mundoDeleted.imagen);
-    return res.status(200).json(mundoDeleted);
+    if (!mundoDeleted) {
+      return res.status(404).json({ message: 'Mundo no encontrado' });
+    }
+    if (mundoDeleted.imagen) {
+      deleteFile(mundoDeleted.imagen);
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'Mundo eliminado correctamente', mundoDeleted });
   } catch (error) {
-    return res.status(400).json('Error al eliminar el Mundo');
+    return res
+      .status(400)
+      .json({ message: 'Error al eliminar el Mundo', error: error.message });
   }
 };
 
