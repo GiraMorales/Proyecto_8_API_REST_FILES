@@ -1,4 +1,5 @@
 const { isAuth } = require('../../middlewares/auth');
+
 const {
   getJugadores,
   register,

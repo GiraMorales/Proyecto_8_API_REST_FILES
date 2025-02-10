@@ -66,20 +66,35 @@ const getJugadores = async (req, res, next) => {
 const updateJugadores = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const oldJugador = await Jugador.findById(id);
-    const newJugador = new Jugador(req.body);
-    newJugador._id = id;
-    if (req.file) {
-      newJugador.imagen = req.file.path;
-      deleteFile(oldJugador.imagen);
+
+    // Verifica que el usuario autenticado es el mismo que intenta actualizar
+    if (req.jugador._id.toString() !== id) {
+      return res.status(403).json({
+        message: 'No puedes actualizar otro perfil que no sea el tuyo'
+      });
     }
 
-    const updateJugadores = await Jugador.findByIdAndUpdate(id, newJugador, {
+    const oldJugador = await Jugador.findById(id);
+    if (!oldJugador) {
+      return res.status(404).json({ message: 'Jugador no encontrado' });
+    }
+    const updates = req.body;
+
+    // Verifica si la contraseña está incluida en la solicitud, y encripta si es necesario
+    if (updates.password) {
+      updates.password = bcrypt.hashSync(updates.password, 10);
+    }
+    // Actualiza el jugador con los datos nuevos
+    const updateJugadores = await Jugador.findByIdAndUpdate(id, updates, {
       new: true
     });
+
     return res.status(200).json(updateJugadores);
   } catch (error) {
-    return res.status(400).json('Error al actualizar la Jugador');
+    return res.status(400).json({
+      message: 'Error al actualizar la Jugador',
+      error: error.message
+    });
   }
 };
 
@@ -87,12 +102,21 @@ const updateJugadores = async (req, res, next) => {
 const deleteJugador = async (req, res, next) => {
   try {
     const { id } = req.params;
+
+    if (req.jugador._id.toString() !== id) {
+      return res
+        .status(403)
+        .json({ message: 'No puedes eliminar otro perfil' });
+    }
+
     const jugadorDeleted = await Jugador.findByIdAndDelete(id);
     return res
       .status(200)
-      .json({ mensaj: 'Jugador eliminado', jugadorDeleted });
+      .json({ message: 'Jugador eliminado', jugadorDeleted });
   } catch (error) {
-    return res.status(400).json(error);
+    return res
+      .status(400)
+      .json({ message: 'Error al eliminar el jugador', error: error.message });
   }
 };
 

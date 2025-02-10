@@ -1,5 +1,5 @@
-const Jugador = require('../api/models/jugador');
 const { verifyjwt } = require('../config/jwt');
+const Jugador = require('../api/models/jugador');
 
 const isAuth = async (req, res, next) => {
   try {
@@ -9,15 +9,18 @@ const isAuth = async (req, res, next) => {
     }
     const parsedToken = token.replace('Bearer ', '');
     const { id } = verifyjwt(parsedToken);
-    const jugador = await jugadorName.findByPk(id);
-    if (!Jugador) {
+    const jugador = await Jugador.findById(id);
+
+    if (!jugador) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
     jugador.password = null;
     req.jugador = jugador;
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'No estas logueado', error });
+    return res
+      .status(401)
+      .json({ message: 'No tienes permisos', error: error.message });
   }
 };
 
@@ -26,18 +29,22 @@ const isAdmin = async (req, res, next) => {
     const token = req.headers.authorization;
     const parsedToken = token.replace('Bearer ', '');
     const { id } = verifyjwt(parsedToken);
-    const jugador = await jugadorName.findByPk(id);
+    const jugador = await Jugador.findById(id);
+    if (!jugador) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
     if (jugador.rol !== 'admin') {
-      jugador.password = null;
-      req.jugador = jugador;
-      next();
-    } else {
       return res
-        .status(400)
+        .status(403)
         .json('Esta acción sólo la pueden realizar los administradores');
     }
+    jugador.password = null;
+    req.jugador = jugador;
+    next();
   } catch (error) {
-    return res.status(400).json(error);
+    return res
+      .status(403)
+      .json({ message: 'Error en la verificación del token o rol', error });
   }
 };
 
