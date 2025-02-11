@@ -1,6 +1,8 @@
 const { generateSing } = require('../../config/jwt');
 const Jugador = require('../models/jugador');
 const bcrypt = require('bcrypt');
+const { deleteFile } = require('../../utils/deleteFile'); // Importamos la función para eliminar archivos
+const { buscarJugador } = require('.../../utils/buscarJugador');
 
 //! CREATE
 const register = async (req, res, next) => {
@@ -30,9 +32,10 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const jugador = await Jugador.findOne({
-      jugadorName: req.body.jugadorName
-    });
+    const jugador = await buscarJugador(req, res, next);
+    if (!jugador) {
+      return res.status(404).json({ message: 'Jugador no encontrado' });
+    }
 
     if (jugador) {
       if (bcrypt.compareSync(req.body.password, jugador.password)) {
@@ -110,6 +113,14 @@ const deleteJugador = async (req, res, next) => {
     }
 
     const jugadorDeleted = await Jugador.findByIdAndDelete(id);
+    if (!jugadorDeleted) {
+      return res.status(404).json({ message: 'Jugador no encontrado' });
+    }
+
+    // Eliminamos la imagen asociada si existe
+    if (jugadorDeleted.imageUrl) {
+      deleteFile(jugadorDeleted.imageUrl);
+    }
     return res
       .status(200)
       .json({ message: 'Jugador eliminado', jugadorDeleted });
