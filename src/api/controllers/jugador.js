@@ -2,7 +2,6 @@ const { generateSing } = require('../../config/jwt');
 const Jugador = require('../models/jugador');
 const bcrypt = require('bcrypt');
 const { deleteFile } = require('../../utils/deleteFile'); // Importamos la función para eliminar archivos
-const { buscarJugador } = require('.../../utils/buscarJugador');
 
 //! CREATE
 const register = async (req, res, next) => {
@@ -32,7 +31,9 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const jugador = await buscarJugador(req, res, next);
+    const jugador = await Jugador.findOne({
+      jugadorName: req.body.jugadorName
+    });
     if (!jugador) {
       return res.status(404).json({ message: 'Jugador no encontrado' });
     }
@@ -51,7 +52,7 @@ const login = async (req, res, next) => {
       return res.status(404).json('Jugador o contraseña son incorrectos');
     }
   } catch (error) {
-    return res.status(400).json(error);
+    return res.status(400).json({ message: 'como', error: error.message });
   }
 };
 
@@ -69,7 +70,6 @@ const getJugadores = async (req, res, next) => {
 const updateJugadores = async (req, res, next) => {
   try {
     const { id } = req.params;
-
     // Verifica que el usuario autenticado es el mismo que intenta actualizar
     if (req.jugador._id.toString() !== id) {
       return res.status(403).json({

@@ -50,9 +50,7 @@ const getPantallaMundos = async (req, res, next) => {
 const updateMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const oldMundo = await Mundo.findById(id, {
-      new: true
-    });
+    const oldMundo = await Mundo.findById(id);
     if (!oldMundo) {
       return res.status(404).json({ message: 'Mundo no encontrado' });
     }

@@ -36,9 +36,7 @@ const getPantallas = async (req, res, next) => {
 const updatePantalla = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const oldPantallas = await Pantallas.findById(id, req.body, {
-      new: true
-    });
+    const oldPantallas = await Pantallas.findById(id);
     if (!oldPantallas) {
       return res.status(404).json({ message: 'Pantalla no encontrada' });
     }
