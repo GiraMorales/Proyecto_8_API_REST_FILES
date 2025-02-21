@@ -44,14 +44,14 @@ Seguridad: Implementación de autenticación con JWT.
 
 ## Tecnologías Utilizadas
 
-- Node.js
-- Express
-- MongoDB(Atlas)
-- Mongoose
-- INMSOMIA
-- Visual Studio Code
-- Cloudinary
-- Multer
+- **Node.js**
+- **Express**
+- **MongoDB(Atlas)**
+- **Mongoose**
+- **Insomnia** (para realizar pruebas de API)
+- **Cloudinary** (para la gestión de imágenes)
+- **JWT** (para autenticación)
+- **Multer** (para gestionar imagenes con cloudinary)
 
 ## Instalación
 
@@ -63,48 +63,6 @@ Seguridad: Implementación de autenticación con JWT.
 
 - nmp init -y
 
-### Se instala las dependencias
-
-`Para encryptar las contraseñas de los jugadores.`
-
-- "bcrypt"
-
-`Para poder interactuar con la base de datos cloudinary y guardar allí las imagenes.`
-
-- "cloudinary"
-
-`Para permitir que mi servidor acepte solicitudes de origines diferentes.`
-
-- "cors"
-
-`Para manejar variables del archivo .env donde estan los datos sensibles que no pueden ver nadie.`
-
-- "dotenv"
-
-`Para simplificar la creación de rutas, middlewares y servidores.`
-
-- "express"
-
-`Para verificar y crear tokens de autenticación y autorización.`
-
-- "jsonwebtoken"
-
-`Para interactuar con la base de datos mongo.`
-
-- "mongodb"
-
-`Para crear modelos de dots y gestionarlos`
-
-- "mongoose"
-
-`Para procesar imagenes y documentos subidos por el jugador.`
-
-- "multer"
-
-`Para subir imágenes a Cloudinary a traves de Node.js`
-
-- "multer-storage-cloudinary"
-
 ### añadir los scripts
 
 `Para ejecutar el fichero  index.js`
@@ -114,3 +72,9 @@ Seguridad: Implementación de autenticación con JWT.
 `Para levantar la base de datos`
 
 - "dev": "nodemon index.js"
+
+### Variables del entorno
+
+DATABASE_URL=mongodb
+PORT=3001
+JWT_SECRET=tu_clave_secreta
