@@ -42,37 +42,38 @@ Para realizar las operaciones CRUD, utilizo la aplicación Insomnia, y toda la i
 ## 📂 Estructura de Carpetas
 
 src
-├── api
-├── controllers
-├── jugador.js
-├── mundo.js
-└── pantalla.js
-├── models
-├── jugador.js
-├── mundo.js
-└── pantalla.js
-└── routes
-├── jugador.js
-├── main.js
-├── mundo.js
-└── pantalla.js
-├── config
-├── cloudinary.js
-├── db.js
-└── jwt.js
-├── middlewares
-├── auth.js
-└── file.js
-├── seeds
-└── seedUsers.js
-└── utils
-└── deleteFile.js
+    ├── api
+        ├── controllers
+            ├── jugador.js
+            ├── mundo.js
+            └── pantalla.js
+        ├── models
+            ├── jugador.js
+            ├── mundo.js
+            └── pantalla.js
+        └── routes
+            ├── jugador.js
+            ├── main.js
+            ├── mundo.js
+            └── pantalla.js
+    ├── config
+        ├── cloudinary.js
+        ├── db.js
+        └── jwt.js
+    ├── middlewares
+        ├── auth.js
+        └── file.js
+    ├── seeds
+        └── seedUsers.js
+    └── utils
+        └── deleteFile.js
 .gitattributes
 .gitignore
 index.js
 package-lock.json
 package.json
 README.md
+
 
 ## 🔗 Endpoints
 
