@@ -59,7 +59,8 @@ src
     ├── config
         ├── cloudinary.js
         ├── db.js
-        └── jwt.js
+        ├── jwt.js
+        └── Storage.js
     ├── middlewares
         ├── auth.js
         └── file.js
@@ -73,6 +74,7 @@ index.js
 package-lock.json
 package.json
 README.md
+
 
 
 ## 🔗 Endpoints
