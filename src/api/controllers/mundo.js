@@ -6,9 +6,6 @@ const postMundos = async (req, res, next) => {
   try {
     const newMundo = new Mundo(req.body);
     newMundo.verified = req.user?.rol === 'admin';
-    // if (req.files && req.files.imagen) {
-    //   newMundo.imagen = req.files.imagen[0].path;
-    // }
     if (req.file) {
       newMundo.imagen = req.file.path;
     }
@@ -35,7 +32,7 @@ const getPantallaMundos = async (req, res, next) => {
   try {
     const { id } = req.params;
     const pantallaMundos = await Mundo.findOne({ pantalla: id }).populate(
-      namepantalla
+      'namepantalla'
     );
 
     return res.status(200).json(pantallaMundos);
@@ -64,13 +61,6 @@ const updateMundos = async (req, res, next) => {
       }
       oldMundo.imagen = req.file.path;
     }
-
-    // const newMundo = new Mundo(req.body);
-    // newMundo._id = id;
-    // if (req.file) {
-    //   newMundo.imagen = req.file.path;
-    //   deleteFile(oldMundo.imagen);
-    // }
 
     const updatedMundo = await oldMundo.save();
     return res.status(200).json(updatedMundo);

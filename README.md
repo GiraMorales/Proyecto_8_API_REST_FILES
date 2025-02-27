@@ -18,8 +18,8 @@ Para realizar las operaciones CRUD uso la APP INMSOMIA, y todo se gestiona en la
 POST /api/v1/jugadores/register: Registro de un nuevo jugador.
 POST /api/v1/jugadores/login: Inicio de sesión de un jugador.
 GET /api/v1/jugadores/: Buscar todos los jugadores
-PUT /api/v1/jugadores/:\_id: Actualizar tu perfil de jugador.
-DEL /api/v1/jugadores/:\_id: Borrar tu perfil de jugador.
+PUT /api/v1/jugadores/:id: Actualizar tu perfil de jugador.
+DEL /api/v1/jugadores/:id: Borrar tu perfil de jugador.
 
 ### Mundos
 
@@ -46,8 +46,9 @@ Seguridad: Implementación de autenticación con JWT.
 
 - **Node.js**
 - **Express**
+- **Nodemon** (me permite tener el proyecto abierto todo el rato)
 - **MongoDB(Atlas)**
-- **Mongoose**
+- **Mongoose** (para la interación con la base de datos)
 - **Insomnia** (para realizar pruebas de API)
 - **Cloudinary** (para la gestión de imágenes)
 - **JWT** (para autenticación)
@@ -62,6 +63,12 @@ Seguridad: Implementación de autenticación con JWT.
 ### Incializar un paquete de npm
 
 - nmp init -y
+
+### Instalación de las librerias
+
+- npm i express dotenv mongoose bcrypt cors jsonwebtoken
+- npm i -D nodemon
+- npm i multer multer-storage-cloudinary cloudinary
 
 ### añadir los scripts
 
@@ -78,3 +85,6 @@ Seguridad: Implementación de autenticación con JWT.
 DATABASE_URL=mongodb
 PORT=3001
 JWT_SECRET=tu_clave_secreta
+CLOUD_NAME=CLOUD_NAME
+API_KEY=API_KEY
+API_SECRET=API_SECRET
