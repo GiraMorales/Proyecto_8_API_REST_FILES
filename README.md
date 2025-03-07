@@ -42,40 +42,38 @@ Para realizar las operaciones CRUD, utilizo la aplicación Insomnia, y toda la i
 ## 📂 Estructura de Carpetas
 
 src
-    ├── api
-        ├── controllers
-            ├── jugador.js
-            ├── mundo.js
-            └── pantalla.js
-        ├── models
-            ├── jugador.js
-            ├── mundo.js
-            └── pantalla.js
-        └── routes
-            ├── jugador.js
-            ├── main.js
-            ├── mundo.js
-            └── pantalla.js
-    ├── config
-        ├── cloudinary.js
-        ├── db.js
-        ├── jwt.js
-        └── Storage.js
-    ├── middlewares
-        ├── auth.js
-        └── file.js
-    ├── seeds
-        └── seedUsers.js
-    └── utils
-        └── deleteFile.js
+├── api
+├── controllers
+├── jugador.js
+├── mundo.js
+└── pantalla.js
+├── models
+├── jugador.js
+├── mundo.js
+└── pantalla.js
+└── routes
+├── jugador.js
+├── main.js
+├── mundo.js
+└── pantalla.js
+├── config
+├── cloudinary.js
+├── db.js
+├── jwt.js
+└── Storage.js
+├── middlewares
+├── auth.js
+└── file.js
+├── seeds
+└── seedUsers.js
+└── utils
+└── deleteFile.js
 .gitattributes
 .gitignore
 index.js
 package-lock.json
 package.json
 README.md
-
-
 
 ## 🔗 Endpoints
 
@@ -107,7 +105,7 @@ DELETE /api/v1/pantallas/:id: Eliminar una pantalla y su archivo asociado en Clo
 - **Contraseñas encriptadas con bcrypt.**
 - **Protección de rutas para usuarios autenticados y administradores.**
 
-## Instalación
+## 💻 Instalación
 
 ### Se clona este repositorio
 
@@ -120,18 +118,11 @@ cd Proyecto_8_API_REST_FILES
 
 - nmp init -y
 
-### Instalación de las librerias
+### 📚 Instalación de las librerias
 
 - npm i express dotenv mongoose bcrypt cors jsonwebtoken
 - npm i multer multer-storage-cloudinary cloudinary
 - npm i -D nodemon
-
-### añadir los scripts en el package.json
-
-"scripts": {
-"start": "node index.js",
-"dev": "nodemon index.js"
-}
 
 ### ⚙️ Ejecutar el proyecto
 
