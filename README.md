@@ -118,12 +118,6 @@ cd Proyecto_8_API_REST_FILES
 
 - nmp init -y
 
-### 📚 Instalación de las librerias
-
-- npm i express dotenv mongoose bcrypt cors jsonwebtoken
-- npm i multer multer-storage-cloudinary cloudinary
-- npm i -D nodemon
-
 ### ⚙️ Ejecutar el proyecto
 
 - npm run start (Se inicia y se cierra en cada cambio)
@@ -143,4 +137,4 @@ Puedes gestionar el primer usuario administrador directamente en la base de dato
 La relación entre mundos y pantallas permite estructurar la información de forma jerárquica.
 
 📥 Contacto
-Proyecto desarrollado por GiraMorales como parte de un aprendizaje continuo en desarrollo backend.
+Proyecto desarrollado por Gira Morales como parte de un aprendizaje continuo en desarrollo backend.
